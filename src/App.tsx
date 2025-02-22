@@ -1,35 +1,81 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
+const aspectRatio = "6/3";
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        width: "100vw",
+        height: "100vh",
+        boxSizing: "border-box",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          width: "33vw",
+          flexDirection: "column",
+          boxSizing: "border-box",
+        }}
+      >
+        <div
+          style={{
+            flexGrow: 1,
+            aspectRatio: aspectRatio,
+            boxSizing: "border-box",
+          }}
+        >
+          <div
+            style={{
+              width: "100%",
+              height: "100%",
+              border: "1px solid red",
+              boxSizing: "border-box",
+            }}
+          >
+            First Box
+          </div>
+        </div>
+        <div
+          style={{
+            flexGrow: 1,
+            aspectRatio: aspectRatio,
+            boxSizing: "border-box",
+          }}
+        >
+          <div
+            style={{
+              width: "100%",
+              height: "100%",
+              border: "1px solid green",
+              boxSizing: "border-box",
+            }}
+          >
+            Second Box
+          </div>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+      <div
+        style={{
+          flexGrow: 1,
+          aspectRatio: aspectRatio,
+          boxSizing: "border-box",
+        }}
+      >
+        <div
+          style={{
+            width: "100%",
+            height: "100%",
+            border: "1px solid blue",
+            boxSizing: "border-box",
+          }}
+        >
+          The rest
+        </div>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
