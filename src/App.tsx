@@ -1,40 +1,50 @@
+import { ZoomProvider } from "./context";
+import { ZoomOutlet } from "./outlet";
+import { ZoomSlot } from "./slot";
+
 const aspectRatio = "6/3";
 function App() {
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        width: "100vw",
-        height: "100vh",
-        boxSizing: "border-box",
-      }}
-    >
+    <ZoomProvider>
       <div
         style={{
           display: "flex",
-          width: "33vw",
-          flexDirection: "column",
+          flexDirection: "row",
+          alignItems: "center",
+          width: "100vw",
+          height: "100vh",
           boxSizing: "border-box",
         }}
       >
         <div
           style={{
-            flexGrow: 1,
-            aspectRatio: aspectRatio,
+            display: "flex",
+            width: "33vw",
+            flexDirection: "column",
             boxSizing: "border-box",
           }}
         >
           <div
             style={{
-              width: "100%",
-              height: "100%",
-              border: "1px solid red",
+              flexGrow: 1,
+              aspectRatio: aspectRatio,
               boxSizing: "border-box",
             }}
           >
-            First Box
+            <ZoomSlot id="red">
+              <span>First Box</span>
+            </ZoomSlot>
+          </div>
+          <div
+            style={{
+              flexGrow: 1,
+              aspectRatio: aspectRatio,
+              boxSizing: "border-box",
+            }}
+          >
+            <ZoomSlot id="green">
+              <p>Second Box</p>
+            </ZoomSlot>
           </div>
         </div>
         <div
@@ -44,37 +54,10 @@ function App() {
             boxSizing: "border-box",
           }}
         >
-          <div
-            style={{
-              width: "100%",
-              height: "100%",
-              border: "1px solid green",
-              boxSizing: "border-box",
-            }}
-          >
-            Second Box
-          </div>
+          <ZoomOutlet />
         </div>
       </div>
-      <div
-        style={{
-          flexGrow: 1,
-          aspectRatio: aspectRatio,
-          boxSizing: "border-box",
-        }}
-      >
-        <div
-          style={{
-            width: "100%",
-            height: "100%",
-            border: "1px solid blue",
-            boxSizing: "border-box",
-          }}
-        >
-          The rest
-        </div>
-      </div>
-    </div>
+    </ZoomProvider>
   );
 }
 
