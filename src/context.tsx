@@ -5,6 +5,7 @@ export interface ZoomContextControls {
   expandSlot: (id: string) => void;
   setSlotSize: (id: string, rect: DOMRect) => void;
   setOutletSize: (rect: DOMRect) => void;
+  setOutlet: (ref: React.RefObject<HTMLDivElement>) => void;
 }
 
 /**
@@ -13,13 +14,15 @@ export interface ZoomContextControls {
  **/
 export interface ZoomContextState {
   slotData: Map<string, SlotData>;
-  outlet: DOMRect;
+  outlet: React.RefObject<HTMLDivElement> | null;
+  outletSize: DOMRect;
 }
 
 /** This is information we store about each slot */
 interface SlotData {
   expanded: boolean;
-  rect: DOMRect;
+  target: React.RefObject<HTMLDivElement> | null;
+  size: DOMRect;
 }
 
 export interface ZoomContextData {
@@ -36,7 +39,8 @@ export const ZoomProvider = (props: {
 }) => {
   const [state, setState] = React.useState<ZoomContextState>({
     slotData: new Map(),
-    outlet: new DOMRect(),
+    outlet: null,
+    outletSize: new DOMRect(),
   });
   const expandSlot = React.useCallback(
     (id: string) => {
@@ -57,9 +61,9 @@ export const ZoomProvider = (props: {
     (id: string, rect: DOMRect) => {
       const slotData = state.slotData;
       const slot = slotData.get(id);
-      if (slot && slot.rect !== rect) {
+      if (slot && slot.size !== rect) {
         console.log(`Setting slot ${id} to rect: `, rect);
-        slotData.set(id, { ...slot, rect });
+        slotData.set(id, { ...slot, size: rect });
         setState({ ...state, slotData });
       }
     },
@@ -67,9 +71,15 @@ export const ZoomProvider = (props: {
   );
   const setOutletSize = React.useCallback(
     (rect: DOMRect) => {
-      if (state.outlet !== rect) {
-        setState({ ...state, outlet: rect });
+      if (state.outletSize !== rect) {
+        setState({ ...state, outletSize: rect });
       }
+    },
+    [state, setState]
+  );
+  const setOutlet = React.useCallback(
+    (ref: React.RefObject<HTMLDivElement>) => {
+      setState({ ...state, outlet: ref });
     },
     [state, setState]
   );
@@ -81,7 +91,7 @@ export const ZoomProvider = (props: {
       if (slot !== undefined) {
         return;
       }
-      slotData.set(id, { expanded: false, rect: new DOMRect() });
+      slotData.set(id, { expanded: false, target: null, size: new DOMRect() });
       setState({ ...state, slotData });
     },
     [state, setState]
@@ -91,6 +101,7 @@ export const ZoomProvider = (props: {
     registerSlot,
     setSlotSize,
     setOutletSize,
+    setOutlet,
   };
   return (
     <zoomContext.Provider value={{ state, controls }}>
