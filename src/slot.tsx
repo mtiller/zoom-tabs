@@ -36,6 +36,14 @@ export const ZoomSlot = (props: ZoomSlotProps) => {
     transition: "transform 0.5s, top 0.5s, left 0.5s, opacity 2s",
   };
 
+  const clickCss: React.CSSProperties = data?.expanded
+    ? {
+        transform: `scale(0.0, 0.0)`,
+      }
+    : {
+        transform: `scale(1.0, 1.0)`,
+      };
+
   const contentCss: React.CSSProperties = data?.expanded
     ? {
         transform: `scale(1.0, 1.0)`,

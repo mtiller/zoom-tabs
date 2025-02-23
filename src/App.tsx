@@ -19,7 +19,9 @@ function App() {
         <div
           style={{
             display: "flex",
-            width: "33vw",
+            width: "29vw",
+            marginRight: "2vw",
+            marginLeft: "2vw",
             flexDirection: "column",
             boxSizing: "border-box",
           }}
