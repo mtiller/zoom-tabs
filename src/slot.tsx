@@ -31,12 +31,30 @@ export const ZoomSlot = (props: ZoomSlotProps) => {
         boxSizing: "border-box",
       }}
     >
+      {/* <div
+        style={{
+          float: "left",
+          position: "fixed",
+          top: size.top,
+          left: size.left,
+          width: 500,
+          height: 500,
+          transform: "scale(50%, 50%, 0, 0)",
+          transformOrigin: "top left",
+          transition: "transform 2s",
+          border: "1px solid white",
+          boxSizing: "border-box",
+          backgroundColor: "rgba(255, 255, 255, 0.5)",
+        }}
+      >
+        Static
+      </div> */}
       <button onClick={() => controls?.expandSlot(props.id)}>Expand</button>
       {data && (
         <div>
           <p>Expanded: {`${data.expanded}`}</p>
           <pre>
-            ({data.rect.x}, {data.rect.y}) {data.rect.width}x${data.rect.height}
+            ({data.rect.x}, {data.rect.y}) {data.rect.width}x{data.rect.height}
           </pre>
         </div>
       )}

@@ -8,13 +8,16 @@ export function useSize<T extends HTMLElement>(
 
   React.useLayoutEffect(() => {
     const rect =
-      target.current === null
+      target?.current === null
         ? new DOMRect()
         : target.current.getBoundingClientRect();
     setSize(rect);
-  }, [target.current]);
+  }, [target, target.current]);
 
   // Where the magic happens
-  useResizeObserver(target, (entry) => setSize(entry.contentRect));
+  useResizeObserver(target, (entry) => {
+    const rect = entry.target.getBoundingClientRect();
+    setSize(rect);
+  });
   return size;
 }
