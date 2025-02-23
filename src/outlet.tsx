@@ -1,8 +1,24 @@
-export interface ZoomOutletProps {}
+import React from "react";
+import { useSize } from "./size";
+import { zoomContext, ZoomContextData } from "./context";
+
+export interface ZoomOutletProps {
+  context?: React.Context<ZoomContextData>;
+}
 
 export const ZoomOutlet = (props: ZoomOutletProps) => {
+  const { controls } = React.useContext(props.context ?? zoomContext);
+
+  const target = React.useRef<HTMLDivElement>(null);
+  const size = useSize(target);
+
+  React.useEffect(() => {
+    controls.setOutletSize(size);
+  }, [controls.setOutletSize, size]);
+
   return (
     <div
+      ref={target}
       style={{
         width: "100%",
         height: "100%",
@@ -10,7 +26,7 @@ export const ZoomOutlet = (props: ZoomOutletProps) => {
         boxSizing: "border-box",
       }}
     >
-      Outlet
+      {JSON.stringify(size, null, 4)}
     </div>
   );
 };

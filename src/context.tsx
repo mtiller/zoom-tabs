@@ -3,6 +3,8 @@ import React, { JSX } from "react";
 export interface ZoomContextControls {
   registerSlot: (id: string) => void;
   expandSlot: (id: string) => void;
+  setSlotSize: (id: string, rect: DOMRect) => void;
+  setOutletSize: (rect: DOMRect) => void;
 }
 
 /**
@@ -11,11 +13,13 @@ export interface ZoomContextControls {
  **/
 export interface ZoomContextState {
   slotData: Map<string, SlotData>;
+  outlet: DOMRect;
 }
 
 /** This is information we store about each slot */
 interface SlotData {
   expanded: boolean;
+  rect: DOMRect;
 }
 
 export interface ZoomContextData {
@@ -32,6 +36,7 @@ export const ZoomProvider = (props: {
 }) => {
   const [state, setState] = React.useState<ZoomContextState>({
     slotData: new Map(),
+    outlet: new DOMRect(),
   });
   const expandSlot = React.useCallback(
     (id: string) => {
@@ -42,26 +47,51 @@ export const ZoomProvider = (props: {
           slotData.set(key, { ...value, expanded: false });
         });
         console.log(`Setting slot ${id} to expanded`);
-        slotData.set(id, { expanded: true });
-        setState({ slotData });
+        slotData.set(id, { ...slot, expanded: true });
+        setState({ ...state, slotData });
       }
     },
     [state, setState]
   );
+  const setSlotSize = React.useCallback(
+    (id: string, rect: DOMRect) => {
+      const slotData = state.slotData;
+      const slot = slotData.get(id);
+      if (slot && !slot.expanded) {
+        slotData.forEach((value, key) => {
+          slotData.set(key, { ...value, expanded: false });
+        });
+        console.log(`Setting slot ${id} to rect: `, rect);
+        slotData.set(id, { ...slot, rect });
+        setState({ ...state, slotData });
+      }
+    },
+    [state, setState]
+  );
+  const setOutletSize = React.useCallback(
+    (rect: DOMRect) => {
+      setState({ ...state, outlet: rect });
+    },
+    [state, setState]
+  );
+
   const registerSlot = React.useCallback(
     (id: string) => {
       const slotData = state.slotData;
-      if (state.slotData.has(id)) {
+      const slot = slotData.get(id);
+      if (slot !== undefined) {
         return;
       }
-      slotData.set(id, { expanded: false });
-      setState({ slotData });
+      slotData.set(id, { expanded: false, rect: new DOMRect() });
+      setState({ ...state, slotData });
     },
     [state, setState]
   );
   const controls: ZoomContextControls = {
     expandSlot,
     registerSlot,
+    setSlotSize,
+    setOutletSize,
   };
   return (
     <zoomContext.Provider value={{ state, controls }}>
@@ -75,8 +105,9 @@ export function useSlot(id: string) {
   React.useEffect(() => {
     controls.registerSlot(id);
   }, [controls, id]);
-  return React.useMemo(
-    () => state.slotData.get(id),
-    [state, state.slotData, id]
-  );
+  return React.useMemo(() => {
+    const ret = state.slotData.get(id);
+    console.log("useSlot returns: ", ret);
+    return ret;
+  }, [state, state.slotData, id]);
 }
