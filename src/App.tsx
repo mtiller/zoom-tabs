@@ -45,7 +45,7 @@ function App() {
             }}
           >
             <ZoomSlot id="green">
-              <p>Second Box</p>
+              <span>Second Box</span>
             </ZoomSlot>
           </div>
         </div>
