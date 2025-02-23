@@ -35,7 +35,9 @@ export const ZoomSlot = (props: ZoomSlotProps) => {
       {data && (
         <div>
           <p>Expanded: {`${data.expanded}`}</p>
-          <pre>Rect: {JSON.stringify(data.rect)}</pre>
+          <pre>
+            ({data.rect.x}, {data.rect.y}) {data.rect.width}x${data.rect.height}
+          </pre>
         </div>
       )}
       {props.children}

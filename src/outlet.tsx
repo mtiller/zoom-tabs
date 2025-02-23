@@ -26,7 +26,7 @@ export const ZoomOutlet = (props: ZoomOutletProps) => {
         boxSizing: "border-box",
       }}
     >
-      {JSON.stringify(size, null, 4)}
+      ({size.x}, {size.y}) ({size.width}x{size.height})
     </div>
   );
 };

@@ -12,7 +12,7 @@ export function useSize<T extends HTMLElement>(
         ? new DOMRect()
         : target.current.getBoundingClientRect();
     setSize(rect);
-  }, [target]);
+  }, [target.current]);
 
   // Where the magic happens
   useResizeObserver(target, (entry) => setSize(entry.contentRect));

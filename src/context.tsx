@@ -57,10 +57,7 @@ export const ZoomProvider = (props: {
     (id: string, rect: DOMRect) => {
       const slotData = state.slotData;
       const slot = slotData.get(id);
-      if (slot && !slot.expanded) {
-        slotData.forEach((value, key) => {
-          slotData.set(key, { ...value, expanded: false });
-        });
+      if (slot && slot.rect !== rect) {
         console.log(`Setting slot ${id} to rect: `, rect);
         slotData.set(id, { ...slot, rect });
         setState({ ...state, slotData });
@@ -70,7 +67,9 @@ export const ZoomProvider = (props: {
   );
   const setOutletSize = React.useCallback(
     (rect: DOMRect) => {
-      setState({ ...state, outlet: rect });
+      if (state.outlet !== rect) {
+        setState({ ...state, outlet: rect });
+      }
     },
     [state, setState]
   );
