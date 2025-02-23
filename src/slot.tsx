@@ -27,6 +27,15 @@ export const ZoomSlot = (props: ZoomSlotProps) => {
   const dx = outletSize.x - size.x;
   const dy = outletSize.y - size.y;
 
+  const maskCss: React.CSSProperties = {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    boxSizing: "border-box",
+    transformOrigin: "top left",
+    transition: "transform 0.5s, top 0.5s, left 0.5s, opacity 2s",
+  };
+
   const contentCss: React.CSSProperties = data?.expanded
     ? {
         transform: `scale(1.0, 1.0)`,
@@ -37,6 +46,14 @@ export const ZoomSlot = (props: ZoomSlotProps) => {
         transform: `scale(${sx}, ${sy})`,
         top: 0,
         left: 0,
+      };
+
+  const overlayCss: React.CSSProperties = data?.expanded
+    ? {
+        opacity: 0,
+      }
+    : {
+        opacity: 0.5,
       };
 
   return (
@@ -53,12 +70,9 @@ export const ZoomSlot = (props: ZoomSlotProps) => {
       {/* Click target */}
       <div
         style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
+          ...maskCss,
           width: "100%",
           height: "100%",
-          boxSizing: "border-box",
           zIndex: 10,
         }}
         onClick={() => {
@@ -71,12 +85,12 @@ export const ZoomSlot = (props: ZoomSlotProps) => {
       {/* Overlay */}
       <div
         style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          boxSizing: "border-box",
+          ...maskCss,
+          width: outletSize.width,
+          height: outletSize.height,
+          ...contentCss,
+          ...overlayCss,
+          backgroundColor: "rgba(255, 0, 255, 0.5)",
         }}
       >
         Overlay
@@ -85,27 +99,15 @@ export const ZoomSlot = (props: ZoomSlotProps) => {
       {/* Content */}
       <div
         style={{
-          position: "absolute",
+          ...maskCss,
           width: outletSize.width,
           height: outletSize.height,
-          transformOrigin: "top left",
           ...contentCss,
-          transition: "transform 0.5s, top 0.5s, left 0.5s",
           backgroundColor: "rgba(255, 255, 255, 0.5)",
-          boxSizing: "border-box",
         }}
       >
         {props.children}
       </div>
-      <button onClick={() => controls?.expandSlot(props.id)}>Expand</button>
-      {data && (
-        <div>
-          <p>Expanded: {`${data.expanded}`}</p>
-          <pre>
-            ({data.size.x}, {data.size.y}) {data.size.width}x{data.size.height}
-          </pre>
-        </div>
-      )}
     </div>
   );
 };
