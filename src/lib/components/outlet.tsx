@@ -22,11 +22,8 @@ export const ZoomOutlet = (props: ZoomOutletProps) => {
       style={{
         width: "100%",
         height: "100%",
-        border: "1px solid blue",
         boxSizing: "border-box",
       }}
-    >
-      ({size.x}, {size.y}) ({size.width}x{size.height})
-    </div>
+    ></div>
   );
 };

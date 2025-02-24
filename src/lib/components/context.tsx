@@ -3,6 +3,7 @@ import React, { JSX } from "react";
 export interface ZoomContextControls {
   registerSlot: (id: string) => void;
   expandSlot: (id: string) => void;
+  setExpanded: (id: string, expanded: boolean) => void;
   setSlotSize: (id: string, rect: DOMRect) => void;
   setOutletSize: (rect: DOMRect) => void;
   setOutlet: (ref: React.RefObject<HTMLDivElement>) => void;
@@ -42,6 +43,17 @@ export const ZoomProvider = (props: {
     outlet: null,
     outletSize: new DOMRect(),
   });
+  const setExpanded = React.useCallback(
+    (id: string, expanded: boolean) => {
+      const slotData = state.slotData;
+      const slot = slotData.get(id);
+      if (slot && slot.expanded) {
+        slotData.set(id, { ...slot, expanded: expanded });
+        setState({ ...state, slotData });
+      }
+    },
+    [state, setState]
+  );
   const expandSlot = React.useCallback(
     (id: string) => {
       const slotData = state.slotData;
@@ -50,7 +62,6 @@ export const ZoomProvider = (props: {
         slotData.forEach((value, key) => {
           slotData.set(key, { ...value, expanded: false });
         });
-        console.log(`Setting slot ${id} to expanded`);
         slotData.set(id, { ...slot, expanded: true });
         setState({ ...state, slotData });
       }
@@ -98,6 +109,7 @@ export const ZoomProvider = (props: {
   );
   const controls: ZoomContextControls = {
     expandSlot,
+    setExpanded,
     registerSlot,
     setSlotSize,
     setOutletSize,

@@ -27,6 +27,8 @@ export const ZoomSlot = (props: ZoomSlotProps) => {
   const dx = outletSize.x - size.x;
   const dy = outletSize.y - size.y;
 
+  const expanded = data?.expanded ?? false;
+
   const maskCss: React.CSSProperties = {
     position: "absolute",
     top: 0,
@@ -36,7 +38,7 @@ export const ZoomSlot = (props: ZoomSlotProps) => {
     transition: "transform 0.5s, top 0.5s, left 0.5s, opacity 2s",
   };
 
-  const contentCss: React.CSSProperties = data?.expanded
+  const contentCss: React.CSSProperties = expanded
     ? {
         transform: `scale(1.0, 1.0)`,
         top: dy,
@@ -48,11 +50,13 @@ export const ZoomSlot = (props: ZoomSlotProps) => {
         left: 0,
       };
 
-  const overlayCss: React.CSSProperties = data?.expanded
+  const overlayCss: React.CSSProperties = expanded
     ? {
+        transform: `scale(${1.0 / sx}, ${1.0 / sy})`,
         opacity: 0,
       }
     : {
+        transform: `scale(1.0, 1.0)`,
         opacity: 0.5,
       };
 
@@ -76,24 +80,28 @@ export const ZoomSlot = (props: ZoomSlotProps) => {
           zIndex: 10,
         }}
         onClick={() => {
-          console.log("Click to expand ", props.id);
-          controls?.expandSlot(props.id);
+          if (expanded) {
+            controls.setExpanded(props.id, false);
+          } else {
+            controls.expandSlot(props.id);
+          }
         }}
-      >
-        Click Target
-      </div>
+      ></div>
       {/* Overlay */}
       <div
         style={{
+          display: "flex",
           ...maskCss,
-          width: outletSize.width,
-          height: outletSize.height,
+          width: size.width,
+          height: size.height,
+          justifyContent: "space-around",
+          alignItems: "center",
           ...contentCss,
           ...overlayCss,
           backgroundColor: "rgba(255, 0, 255, 0.5)",
         }}
       >
-        Overlay
+        <div style={{ flexShrink: 1 }}>Overlay</div>
       </div>
 
       {/* Content */}
