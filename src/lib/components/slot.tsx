@@ -60,6 +60,11 @@ export const ZoomSlot = (props: ZoomSlotProps) => {
         opacity: 0.5,
       };
 
+  const overlay =
+    props.children.type.name === "SlotContent"
+      ? props.children.props["overlay"]
+      : null;
+
   return (
     <div
       ref={target}
@@ -101,7 +106,7 @@ export const ZoomSlot = (props: ZoomSlotProps) => {
           backgroundColor: "rgba(255, 0, 255, 0.5)",
         }}
       >
-        <div style={{ flexShrink: 1 }}>Overlay</div>
+        {overlay}
       </div>
 
       {/* Content */}

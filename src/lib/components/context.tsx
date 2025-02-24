@@ -73,7 +73,6 @@ export const ZoomProvider = (props: {
       const slotData = state.slotData;
       const slot = slotData.get(id);
       if (slot && slot.size !== rect) {
-        console.log(`Setting slot ${id} to rect: `, rect);
         slotData.set(id, { ...slot, size: rect });
         setState({ ...state, slotData });
       }
@@ -129,7 +128,6 @@ export function useSlot(id: string) {
   }, [controls, id]);
   return React.useMemo(() => {
     const ret = state.slotData.get(id);
-    console.log("useSlot returns: ", ret);
     return ret;
   }, [state, state.slotData, id]);
 }
