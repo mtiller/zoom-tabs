@@ -1,4 +1,4 @@
-import React, { JSX, useEffect } from "react";
+import React, { JSX, useEffect, useLayoutEffect } from "react";
 import { useSlot, zoomContext, ZoomContextData } from "./context";
 import { useSize } from "../hooks/size";
 
@@ -8,12 +8,25 @@ export interface ZoomSlotProps {
   context?: React.Context<ZoomContextData>;
 }
 
+const maskCss: React.CSSProperties = {
+  position: "absolute",
+  top: 0,
+  left: 0,
+  boxSizing: "border-box",
+  transformOrigin: "top left",
+};
+
+const transitionCSS: React.CSSProperties = {
+  transition: "transform 0.5s, top 0.5s, left 0.5s, opacity 2s",
+};
+
 export const ZoomSlot = (props: ZoomSlotProps) => {
   const { controls, state } = React.useContext(props.context ?? zoomContext);
   const outletSize = state.outletSize;
   const data = useSlot(props.id);
   const target = React.useRef<HTMLDivElement>(null);
   const size = useSize(target);
+  const [addTransition, setAddTransition] = React.useState(false);
 
   useEffect(() => {
     controls.registerSlot(props.id);
@@ -21,6 +34,9 @@ export const ZoomSlot = (props: ZoomSlotProps) => {
   useEffect(() => {
     controls.setSlotSize(props.id, size);
   }, [controls.setSlotSize, props.id, size]);
+  useLayoutEffect(() => {
+    setTimeout(() => setAddTransition(true), 10);
+  });
   console.log(`slot data for ${props.id}: `, data);
   const sx = size.width / outletSize.width;
   const sy = size.height / outletSize.height;
@@ -28,15 +44,6 @@ export const ZoomSlot = (props: ZoomSlotProps) => {
   const dy = outletSize.y - size.y;
 
   const expanded = data?.expanded ?? false;
-
-  const maskCss: React.CSSProperties = {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    boxSizing: "border-box",
-    transformOrigin: "top left",
-    transition: "transform 0.5s, top 0.5s, left 0.5s, opacity 2s",
-  };
 
   const contentCss: React.CSSProperties = expanded
     ? {
@@ -80,6 +87,7 @@ export const ZoomSlot = (props: ZoomSlotProps) => {
       <div
         style={{
           ...maskCss,
+          ...(addTransition ? transitionCSS : {}),
           width: "100%",
           height: "100%",
           zIndex: 10,
@@ -97,6 +105,7 @@ export const ZoomSlot = (props: ZoomSlotProps) => {
         style={{
           display: "flex",
           ...maskCss,
+          ...(addTransition ? transitionCSS : {}),
           width: size.width,
           height: size.height,
           justifyContent: "space-around",
@@ -113,6 +122,7 @@ export const ZoomSlot = (props: ZoomSlotProps) => {
       <div
         style={{
           ...maskCss,
+          ...(addTransition ? transitionCSS : {}),
           width: outletSize.width,
           height: outletSize.height,
           ...contentCss,
