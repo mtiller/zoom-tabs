@@ -1,5 +1,5 @@
 import React from "react";
-import { useSize } from "./size";
+import { useSize } from "../hooks/size";
 import { zoomContext, ZoomContextData } from "./context";
 
 export interface ZoomOutletProps {

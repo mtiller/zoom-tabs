@@ -1,6 +1,6 @@
 import React, { JSX, useEffect } from "react";
 import { useSlot, zoomContext, ZoomContextData } from "./context";
-import { useSize } from "./size";
+import { useSize } from "../hooks/size";
 
 export interface ZoomSlotProps {
   id: string;
