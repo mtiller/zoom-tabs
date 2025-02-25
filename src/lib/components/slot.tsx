@@ -4,7 +4,7 @@ import { useSize } from "../hooks/size";
 
 export interface ZoomSlotProps {
   id: string;
-  children: JSX.Element;
+  children: JSX.Element | ((size: DOMRect) => JSX.Element);
   context?: React.Context<ZoomContextData>;
 }
 
@@ -68,9 +68,20 @@ export const ZoomSlot = (props: ZoomSlotProps) => {
       };
 
   const overlay =
-    props.children.type.name === "SlotContent"
+    typeof props.children === "function"
+      ? null
+      : props.children.type.name === "SlotContent"
       ? props.children.props["overlay"]
       : null;
+
+  const children =
+    typeof props.children === "function"
+      ? props.children(outletSize)
+      : props.children.type.name === "SlotContent"
+      ? typeof props.children.props["children"] === "function"
+        ? props.children.props["children"](outletSize)
+        : props.children.props["children"]
+      : props.children.props["children"];
 
   return (
     <div
@@ -129,7 +140,7 @@ export const ZoomSlot = (props: ZoomSlotProps) => {
           backgroundColor: "rgba(255, 255, 255, 0.5)",
         }}
       >
-        {props.children}
+        {children}
       </div>
     </div>
   );

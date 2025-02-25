@@ -1,5 +1,8 @@
 import { Sidebar } from "../lib";
 import { SlotContent } from "../lib/components/content";
+import { Vega, VegaLite } from "react-vega";
+import { barChartData, barChartSpec } from "./specs";
+import "./vega.css";
 
 export interface OverlaysProps {
   aspectRatio: number;
@@ -16,9 +19,50 @@ export const Overlays = (props: OverlaysProps) => {
         gap={props.gap}
       >
         <SlotContent overlay={<h1>Overlay</h1>}>
-          <span>Foo</span>
+          {(size) => (
+            <Vega
+              width={size.width * 0.95}
+              height={size.height * 0.9}
+              renderer="svg"
+              spec={barChartSpec as any}
+              data={barChartData}
+              actions={false}
+            />
+          )}
         </SlotContent>
-        <div style={{ aspectRatio: props.aspectRatio, width: "100%" }}>Bar</div>
+        <SlotContent overlay={<h1>Overlay</h1>}>
+          {(size) => (
+            <Vega
+              width={size.width * 0.95}
+              height={size.height * 0.9}
+              spec={barChartSpec as any}
+              data={barChartData}
+              actions={false}
+            />
+          )}
+        </SlotContent>
+        <SlotContent overlay={<h1>Overlay</h1>}>
+          {(size) => (
+            <Vega
+              width={size.width * 0.95}
+              height={size.height * 0.9}
+              spec={barChartSpec as any}
+              data={barChartData}
+              actions={false}
+            />
+          )}
+        </SlotContent>
+        <SlotContent overlay={<h1>Overlay</h1>}>
+          {(size) => (
+            <Vega
+              width={size.width * 0.95}
+              height={size.height * 0.9}
+              spec={barChartSpec as any}
+              data={barChartData}
+              actions={false}
+            />
+          )}
+        </SlotContent>
       </Sidebar>
     </div>
   );
