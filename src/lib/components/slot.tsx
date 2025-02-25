@@ -17,7 +17,7 @@ const maskCss: React.CSSProperties = {
 };
 
 const transitionCSS: React.CSSProperties = {
-  transition: "transform 0.5s, top 0.5s, left 0.5s, opacity 2s",
+  transition: "transform 0.5s, top 0.5s, left 0.5s, opacity 0.5s",
 };
 
 export const ZoomSlot = (props: ZoomSlotProps) => {
@@ -64,7 +64,7 @@ export const ZoomSlot = (props: ZoomSlotProps) => {
       }
     : {
         transform: `scale(1.0, 1.0)`,
-        opacity: 0.5,
+        opacity: 1,
       };
 
   const overlay =
@@ -123,7 +123,7 @@ export const ZoomSlot = (props: ZoomSlotProps) => {
           alignItems: "center",
           ...contentCss,
           ...overlayCss,
-          backgroundColor: "rgba(255, 0, 255, 0.5)",
+          zIndex: expanded ? -5 : 5,
         }}
       >
         {overlay}
