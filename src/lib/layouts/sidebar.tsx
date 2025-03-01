@@ -1,5 +1,5 @@
 import { JSX } from "react";
-import { ZoomOutlet, ZoomProvider, ZoomSlot } from "../components";
+import { ZoomOutlet, ZoomSlot } from "../components";
 
 export interface SidebarProps {
   /** This is the ratio of width to height */
@@ -16,7 +16,7 @@ export const Sidebar = ({
   gap,
 }: SidebarProps) => {
   return (
-    <ZoomProvider>
+    <div>
       {/* Overall <div> */}
       <div
         style={{
@@ -45,7 +45,7 @@ export const Sidebar = ({
                 boxSizing: "border-box",
               }}
             >
-              <ZoomSlot id={`slot${index}`}>{child}</ZoomSlot>
+              <ZoomSlot slot={`slot${index}`}>{child}</ZoomSlot>
             </div>
           ))}
         </div>
@@ -61,6 +61,6 @@ export const Sidebar = ({
           <ZoomOutlet />
         </div>
       </div>
-    </ZoomProvider>
+    </div>
   );
 };

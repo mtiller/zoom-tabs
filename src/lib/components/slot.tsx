@@ -1,9 +1,9 @@
 import React, { JSX, useEffect, useLayoutEffect } from "react";
-import { useSlot, zoomContext, ZoomContextData } from "./context";
-import { useSize } from "../hooks/size";
+import { zoomContext, ZoomContextData } from "../contexts/zoom";
+import { useSize, useSlot } from "../hooks";
 
 export interface ZoomSlotProps {
-  id: string;
+  slot: string;
   children: JSX.Element | ((size: DOMRect) => JSX.Element);
   context?: React.Context<ZoomContextData>;
 }
@@ -23,17 +23,17 @@ const transitionCSS: React.CSSProperties = {
 export const ZoomSlot = (props: ZoomSlotProps) => {
   const { controls, state } = React.useContext(props.context ?? zoomContext);
   const outletSize = state.outletSize;
-  const data = useSlot(props.id);
+  const data = useSlot(props.slot);
   const target = React.useRef<HTMLDivElement>(null);
   const size = useSize(target);
   const [addTransition, setAddTransition] = React.useState(false);
 
   useEffect(() => {
-    controls.registerSlot(props.id);
-  }, [controls.registerSlot, props.id]);
+    controls.registerSlot(props.slot);
+  }, [controls.registerSlot, props.slot]);
   useEffect(() => {
-    controls.setSlotSize(props.id, size);
-  }, [controls.setSlotSize, props.id, size]);
+    controls.setSlotSize(props.slot, size);
+  }, [controls.setSlotSize, props.slot, size]);
   useLayoutEffect(() => {
     setTimeout(() => setAddTransition(true), 10);
   });
@@ -89,7 +89,7 @@ export const ZoomSlot = (props: ZoomSlotProps) => {
         position: "relative",
         width: "100%",
         height: "100%",
-        border: `1px solid ${props.id}`,
+        border: `1px solid ${props.slot}`,
         boxSizing: "border-box",
       }}
     >
@@ -104,9 +104,9 @@ export const ZoomSlot = (props: ZoomSlotProps) => {
         }}
         onClick={() => {
           if (expanded) {
-            controls.setExpanded(props.id, false);
+            controls.setExpanded(props.slot, false);
           } else {
-            controls.expandSlot(props.id);
+            controls.expandSlot(props.slot);
           }
         }}
       ></div>

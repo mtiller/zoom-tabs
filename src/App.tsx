@@ -31,7 +31,7 @@ function App() {
               boxSizing: "border-box",
             }}
           >
-            <ZoomSlot id="red">
+            <ZoomSlot slot="red">
               <span>First Box</span>
             </ZoomSlot>
           </div>
@@ -42,7 +42,7 @@ function App() {
               boxSizing: "border-box",
             }}
           >
-            <ZoomSlot id="green">
+            <ZoomSlot slot="green">
               <span>Second Box</span>
             </ZoomSlot>
           </div>

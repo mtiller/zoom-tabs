@@ -9,11 +9,13 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build:storybook": "storybook build",
+    "view:storybook": "npm run build:storybook && serve storybook-static"
   },
   "dependencies": {
     "@react-hook/resize-observer": "^2.0.2",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "serve": "^14.2.4"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.4",

@@ -1,43 +1,15 @@
-import React, { JSX } from "react";
+import React from "react";
+import {
+  ZoomContextControls,
+  ZoomContextState,
+  zoomContext,
+} from "../contexts";
 
-export interface ZoomContextControls {
-  registerSlot: (id: string) => void;
-  expandSlot: (id: string) => void;
-  setExpanded: (id: string, expanded: boolean) => void;
-  setSlotSize: (id: string, rect: DOMRect) => void;
-  setOutletSize: (rect: DOMRect) => void;
-  setOutlet: (ref: React.RefObject<HTMLDivElement>) => void;
-}
-
-/**
- * This is the complete state associated with the ZoomContext (both per slot
- * data, outlet data and general preferences)
- **/
-export interface ZoomContextState {
-  slotData: Map<string, SlotData>;
-  outlet: React.RefObject<HTMLDivElement> | null;
-  outletSize: DOMRect;
-}
-
-/** This is information we store about each slot */
-interface SlotData {
-  expanded: boolean;
-  target: React.RefObject<HTMLDivElement> | null;
-  size: DOMRect;
-}
-
-export interface ZoomContextData {
-  controls: ZoomContextControls;
-  state: ZoomContextState;
-}
-
-export const zoomContext = React.createContext<ZoomContextData>(
-  undefined as any as ZoomContextData
-);
-
-export const ZoomProvider = (props: {
+export interface ZoomProviderProps {
+  initiallyOpen?: string;
   children: JSX.Element | JSX.Element[] | string;
-}) => {
+}
+export const ZoomProvider = (props: ZoomProviderProps) => {
   const [state, setState] = React.useState<ZoomContextState>({
     slotData: new Map(),
     outlet: null,
@@ -101,7 +73,11 @@ export const ZoomProvider = (props: {
       if (slot !== undefined) {
         return;
       }
-      slotData.set(id, { expanded: false, target: null, size: new DOMRect() });
+      slotData.set(id, {
+        expanded: id === props.initiallyOpen,
+        target: null,
+        size: new DOMRect(),
+      });
       setState({ ...state, slotData });
     },
     [state, setState]
@@ -120,14 +96,3 @@ export const ZoomProvider = (props: {
     </zoomContext.Provider>
   );
 };
-
-export function useSlot(id: string) {
-  const { controls, state } = React.useContext(zoomContext);
-  React.useEffect(() => {
-    controls.registerSlot(id);
-  }, [controls, id]);
-  return React.useMemo(() => {
-    const ret = state.slotData.get(id);
-    return ret;
-  }, [state, state.slotData, id]);
-}

@@ -1,4 +1,4 @@
-import { Sidebar } from "../lib";
+import { Sidebar, ZoomProvider } from "../lib";
 
 export interface SimpleLayoutsProps {
   aspectRatio: number;
@@ -8,15 +8,19 @@ export interface SimpleLayoutsProps {
 
 export const SimpleLayouts = (props: SimpleLayoutsProps) => {
   return (
-    <div style={{ width: "100%" }}>
-      <Sidebar
-        width={props.width}
-        aspectRatio={props.aspectRatio}
-        gap={props.gap}
-      >
-        <span>Foo</span>
-        <div style={{ aspectRatio: props.aspectRatio, width: "100%" }}>Bar</div>
-      </Sidebar>
-    </div>
+    <ZoomProvider>
+      <div style={{ width: "100%" }}>
+        <Sidebar
+          width={props.width}
+          aspectRatio={props.aspectRatio}
+          gap={props.gap}
+        >
+          <span>Foo</span>
+          <div style={{ aspectRatio: props.aspectRatio, width: "100%" }}>
+            Bar
+          </div>
+        </Sidebar>
+      </div>
+    </ZoomProvider>
   );
 };
