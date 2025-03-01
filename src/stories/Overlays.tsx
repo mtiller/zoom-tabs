@@ -1,10 +1,9 @@
 import { Sidebar } from "../lib";
 import { SlotContent } from "../lib/components/content";
 import { Vega } from "react-vega";
-import { barChartData, barChartSpec, barChartSpec2 } from "./specs/bar-chart";
+import { barChartData, barChartSpec } from "./specs/bar-chart";
 import "./vega.css";
 import { treeMapSpec } from "./specs/treemap";
-import { precipitationSpec } from "./specs/precipitation";
 import { parallelSpec } from "./specs/parallel";
 import React from "react";
 import { mapSpec } from "./specs/map";
@@ -20,6 +19,7 @@ export const Overlays = (props: OverlaysProps) => {
   React.useLayoutEffect(() => {
     setTimeout(() => setActions(true), 50);
   });
+  console.log("BarChartSpec: ", barChartSpec);
   return (
     <div style={{ width: "100%" }}>
       <Sidebar

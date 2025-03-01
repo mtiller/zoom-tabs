@@ -37,7 +37,6 @@ export const ZoomSlot = (props: ZoomSlotProps) => {
   useLayoutEffect(() => {
     setTimeout(() => setAddTransition(true), 10);
   });
-  console.log(`slot data for ${props.id}: `, data);
   const sx = size.width / outletSize.width;
   const sy = size.height / outletSize.height;
   const dx = outletSize.x - size.x;
