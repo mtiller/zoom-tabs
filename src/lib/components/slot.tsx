@@ -1,6 +1,7 @@
 import React, { JSX, useEffect, useLayoutEffect } from "react";
 import { zoomContext, ZoomContextData } from "../contexts/zoom";
 import { useSize, useSlot } from "../hooks";
+import { slotContentType } from "./content";
 
 export interface ZoomSlotProps {
   slot: string;
@@ -69,18 +70,9 @@ export const ZoomSlot = (props: ZoomSlotProps) => {
   const overlay =
     typeof props.children === "function"
       ? null
-      : props.children.type.name === "SlotContent"
+      : props.children.type.name === slotContentType.name
       ? props.children.props["overlay"]
       : null;
-
-  const children =
-    typeof props.children === "function"
-      ? props.children(outletSize)
-      : props.children.type.name === "SlotContent"
-      ? typeof props.children.props["children"] === "function"
-        ? props.children.props["children"](outletSize)
-        : props.children.props["children"]
-      : props.children.props["children"];
 
   return (
     <div
@@ -139,8 +131,31 @@ export const ZoomSlot = (props: ZoomSlotProps) => {
           backgroundColor: "rgba(255, 255, 255, 0.5)",
         }}
       >
-        {children}
+        {renderChildren(props.children, outletSize)}
       </div>
     </div>
   );
 };
+
+function renderChildren(
+  children: ZoomSlotProps["children"],
+  outletSize: DOMRect
+): JSX.Element {
+  // This the child a function?  If so, pass size to it...
+  if (typeof children === "function") {
+    console.log("Passed size to slot child: ", outletSize);
+    return children(outletSize);
+  }
+  // Is the child an instance of `SlotContent` and does it _that_ have a function
+  // as a child?  If so, pass size to it...
+  if (children.type.name === slotContentType.name) {
+    if (typeof children.props["children"] === "function") {
+      console.log("Passed size to SlotContent child: ", outletSize);
+      return children.props["children"](outletSize);
+    }
+    return children.props["children"];
+  }
+
+  // In all other cases, just
+  return children;
+}

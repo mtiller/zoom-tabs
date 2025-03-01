@@ -97,7 +97,7 @@ export const VideoPage = (props: VideoPageProps) => {
             allowFullScreen
           ></iframe>
         </SlotContent>
-        <div>
+        <div style={{ width: "100%", height: "100%" }}>
           <iframe
             width="100%"
             height="100%"
@@ -107,7 +107,7 @@ export const VideoPage = (props: VideoPageProps) => {
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           ></iframe>
         </div>
-        <div>
+        <div style={{ width: "100%", height: "100%" }}>
           <iframe
             width="100%"
             height="100%"
@@ -117,7 +117,7 @@ export const VideoPage = (props: VideoPageProps) => {
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           ></iframe>
         </div>
-        <div>
+        <div style={{ width: "100%", height: "100%" }}>
           <iframe
             width="100%"
             height="100%"

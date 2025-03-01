@@ -1,3 +1,4 @@
+import React from "react";
 import { JSX } from "react";
 
 export interface SlotContentProps {
@@ -8,3 +9,5 @@ export interface SlotContentProps {
 export const SlotContent = (props: SlotContentProps) => {
   return typeof props.children;
 };
+
+export const slotContentType = React.createElement(SlotContent).type;

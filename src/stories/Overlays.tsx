@@ -19,7 +19,6 @@ export const Overlays = (props: OverlaysProps) => {
   React.useLayoutEffect(() => {
     setTimeout(() => setActions(true), 50);
   });
-  console.log("BarChartSpec: ", barChartSpec);
   return (
     <ZoomProvider>
       <div>
