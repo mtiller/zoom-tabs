@@ -1,4 +1,4 @@
-import { ZoomProvider, ZoomOutlet, ZoomSlot } from "./lib";
+import { ZoomProvider, ZoomOutlet, ZoomSlot } from "../lib";
 
 const aspectRatio = "6/3";
 function App() {

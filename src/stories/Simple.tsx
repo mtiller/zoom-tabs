@@ -1,4 +1,4 @@
-import { Sidebar, ZoomProvider } from "../lib";
+import { Sidebar, ZoomProvider } from "../../lib";
 
 export interface SimpleLayoutsProps {
   aspectRatio: number;
