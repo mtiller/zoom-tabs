@@ -27,6 +27,7 @@ export const ZoomOutlet = (props: ZoomOutletProps) => {
 
   return (
     <div
+      className="zoom-outlet"
       ref={target}
       style={{
         width: "100%",

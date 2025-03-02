@@ -52,6 +52,7 @@ export const Sidebar = ({
     <div>
       {/* Overall <div> */}
       <div
+        className="zoom-sidebar"
         style={{
           display: "flex",
           flexDirection: overallDirection,
@@ -60,7 +61,7 @@ export const Sidebar = ({
         }}
       >
         {/* Sidebar <div> */}
-        <div style={sidebarCSS}>
+        <div className="zoom-sidebar-side" style={sidebarCSS}>
           {children.map((child, index) => (
             <div
               key={`slot${index}`}
@@ -75,6 +76,7 @@ export const Sidebar = ({
         </div>
         {/* Outlet <div> */}
         <div
+          className="zoom-sidebar-outlet"
           style={{
             width: "100%",
             paddingLeft: gap,

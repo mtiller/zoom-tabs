@@ -81,6 +81,7 @@ export const ZoomSlot = (props: ZoomSlotProps) => {
     >
       {/* Click target */}
       <div
+        className="zoom-slot-click"
         style={{
           ...maskCss,
           ...(state.active ? transitionCSS : {}),
@@ -98,6 +99,7 @@ export const ZoomSlot = (props: ZoomSlotProps) => {
       ></div>
       {/* Overlay */}
       <div
+        className="zoom-slot-overlay"
         style={{
           display: "flex",
           ...maskCss,
@@ -116,6 +118,7 @@ export const ZoomSlot = (props: ZoomSlotProps) => {
 
       {/* Content */}
       <div
+        className="zoom-slot-content"
         style={{
           ...maskCss,
           ...(state.active ? transitionCSS : {}),

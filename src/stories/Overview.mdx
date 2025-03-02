@@ -17,5 +17,27 @@ import { Meta } from "@storybook/blocks";
     and the content "outlet" are laid out.  This package simply takes care of the graphical transitions that
     occur when the individual pages are selected.
 
+    This package can be used with any layout of a page.  All the user has to do is add a `<ZoomSlot>` component
+    anywhere they would like to see a thumbnail preview.  The children of the `<ZoomSlot>` will be the contents
+    associated with that slot.  In addition, a `<ZoomOutlet>` component needs to be placed somewhere in the UI
+    where the non-thumbnail version of the content is to be shown.
+
+    ### `<Sidebar>` Layout
+
+    Because it is very common to want thumbnails lined up along one edge and the "outlet" placed next to them,
+    the `<Sidebar>` component is provided.  The children of the `<Sidebar>` are the content to be shown in the
+    thumbnails and/or outlet.  Using the `<Sidebar>` takes care of all layout, the user just provides the
+    content, _e.g.,_
+
+    ```typescript
+    <ZoomProvider>
+      <Sidebar aspectRatio={1.6}>
+        <p>Sample content 1</p>
+        <p>Sample content 2</p>
+        <p>Sample content 3</p>
+      </Sidebar>
+    </ZoomProvider>
+    ```
+
   </div>
 </div>

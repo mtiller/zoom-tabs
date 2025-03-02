@@ -1,0 +1,48 @@
+import {
+  Meta,
+  Primary,
+  Controls,
+  Canvas,
+  Story,
+  Title,
+} from "@storybook/blocks";
+import * as BasicStories from "./Basic.stories";
+import "./basic.css";
+
+<Meta
+  of={BasicStories}
+  name="Example/Basic Usage"
+  decorators={[
+    (Story) => {
+      // include stylesheets here so they do not persist on other Stories
+      const csr = require("./basic.css");
+      return <Story />;
+    },
+  ]}
+/>
+;
+
+<Title>Getting Started</Title>
+
+With `zoom-tabs`, you have the power to layout your content however you want. But it is very common
+to layout content so that thumbnail previews are on one side and the selected content is front and
+center. For this reason, the `<Sidebar>` component is provided. It takes care of the layout behind
+the scenes so that you only need to specify the collection of elements to be shown.
+
+Consider the following simple fragment of TSX code:
+
+```typescript
+<ZoomProvider>
+  <Sidebar aspectRatio={1.6}>
+    <p>Sample content 1</p>
+    <p>Sample content 2</p>
+    <p>Sample content 3</p>
+  </Sidebar>
+</ZoomProvider>
+```
+
+For this case, we've styled the `<Sidebar>` element with a black border and each
+individual child of the sidebar with a red border to better demonstrate how the
+layout and transitions are handled...
+
+<Canvas of={BasicStories.BasicExample} />
