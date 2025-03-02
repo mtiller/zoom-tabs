@@ -5,17 +5,35 @@ import {
   zoomContext,
 } from "../contexts";
 
+/** Properties for a ZoomProvider */
 export interface ZoomProviderProps {
+  /** Indicates which slot, if any, is initially open */
   initiallyOpen?: string;
-  children: JSX.Element | JSX.Element[] | string;
+  /** The children of the ZoomProvider */
+  children: React.ReactNode;
 }
+
+/**
+ * The goal of the ZoomProvider is to provide context to the children.  That
+ * context is largely the state of a controller that provides information to
+ * each slot about how to render itself.
+ *
+ * @param props
+ * @returns
+ */
 export const ZoomProvider = (props: ZoomProviderProps) => {
+  // Initialize the state of the controller
   const [state, setState] = React.useState<ZoomContextState>({
     slotData: new Map(),
     outlet: null,
     outletSize: new DOMRect(),
     active: false,
   });
+
+  // Register a whole series of callbacks that can be called to register
+  // slots or to manipulate the state of the controller.
+
+  // Given a slot id, this sets the expanded state for that slot.
   const setExpanded = React.useCallback(
     (id: string, expanded: boolean) => {
       const slotData = state.slotData;
@@ -27,6 +45,8 @@ export const ZoomProvider = (props: ZoomProviderProps) => {
     },
     [state, setState]
   );
+
+  // Expand a given slot (and close all others)
   const expandSlot = React.useCallback(
     (id: string) => {
       const slotData = state.slotData;
@@ -41,6 +61,9 @@ export const ZoomProvider = (props: ZoomProviderProps) => {
     },
     [state, setState]
   );
+
+  // Record the size of a given slot.  This is called whenever the size of that
+  // slot changes.
   const setSlotSize = React.useCallback(
     (id: string, rect: DOMRect) => {
       const slotData = state.slotData;
@@ -52,6 +75,9 @@ export const ZoomProvider = (props: ZoomProviderProps) => {
     },
     [state, setState]
   );
+
+  // Record the size of the outlet component.  This is called whenever the size
+  // of the outlet changes.
   const setOutletSize = React.useCallback(
     (rect: DOMRect) => {
       if (state.outletSize !== rect) {
@@ -60,6 +86,8 @@ export const ZoomProvider = (props: ZoomProviderProps) => {
     },
     [state, setState]
   );
+
+  // Record the RefObject for the outlet (not sure we need this for anything?!?)
   const setOutlet = React.useCallback(
     (ref: React.RefObject<HTMLDivElement>) => {
       setState({ ...state, outlet: ref });
@@ -67,6 +95,7 @@ export const ZoomProvider = (props: ZoomProviderProps) => {
     [state, setState]
   );
 
+  // Register a new slot with the given name.
   const registerSlot = React.useCallback(
     (id: string) => {
       const slotData = state.slotData;
@@ -83,6 +112,8 @@ export const ZoomProvider = (props: ZoomProviderProps) => {
     },
     [state, setState]
   );
+
+  // Construct the controls
   const controls: ZoomContextControls = {
     expandSlot,
     setExpanded,
@@ -91,6 +122,7 @@ export const ZoomProvider = (props: ZoomProviderProps) => {
     setOutletSize,
     setOutlet,
   };
+  // Instantiate a ZoomContext and inject the state and controls
   return (
     <zoomContext.Provider value={{ state, controls }}>
       {props.children}

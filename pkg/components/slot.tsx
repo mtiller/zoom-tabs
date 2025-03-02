@@ -4,8 +4,10 @@ import { useSize, useSlot } from "../hooks";
 import { slotContentType } from "./content";
 
 export interface ZoomSlotProps {
+  // The slot id to associate with the ZoomSlot
   slot: string;
   children: JSX.Element | ((size: DOMRect) => JSX.Element);
+  // An alternative context in case we cannot use an enclosing provider
   context?: React.Context<ZoomContextData>;
 }
 
