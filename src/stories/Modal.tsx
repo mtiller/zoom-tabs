@@ -1,6 +1,6 @@
 export interface ModalProperties {}
 
-export const Modal = (props: ModalProperties) => {
+export const Modal = (_props: ModalProperties) => {
   return (
     <div>
       <div>

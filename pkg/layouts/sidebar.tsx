@@ -1,4 +1,3 @@
-import { JSX } from "react";
 import { ZoomOutlet, ZoomSlot } from "../components";
 
 export interface SidebarProps {
@@ -10,7 +9,7 @@ export interface SidebarProps {
   gap?: number;
   /** Which side the thumbnails should be on */
   side?: "left" | "right" | "top" | "bottom";
-  children: JSX.Element[];
+  children: React.ReactElement[];
 }
 
 export const Sidebar = ({

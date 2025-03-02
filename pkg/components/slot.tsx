@@ -1,12 +1,12 @@
-import React, { JSX, useEffect } from "react";
+import React, { useEffect } from "react";
 import { zoomContext, ZoomContextData } from "../contexts/zoom";
 import { useSize, useSlot } from "../hooks";
-import { slotContentType } from "./content";
+import { isSlotContent } from "./content";
 
 export interface ZoomSlotProps {
   // The slot id to associate with the ZoomSlot
   slot: string;
-  children: JSX.Element | ((size: DOMRect) => JSX.Element);
+  children: React.ReactNode | ((size: DOMRect) => React.ReactNode);
   // An alternative context in case we cannot use an enclosing provider
   context?: React.Context<ZoomContextData>;
 }
@@ -66,12 +66,7 @@ export const ZoomSlot = (props: ZoomSlotProps) => {
       };
 
   // See if there is an overlay defined for this slot
-  const overlay =
-    typeof props.children === "function"
-      ? null
-      : props.children.type.name === slotContentType.name
-      ? props.children.props["overlay"]
-      : null;
+  const overlay = extractOverlay(props.children);
 
   return (
     <div
@@ -136,22 +131,33 @@ export const ZoomSlot = (props: ZoomSlotProps) => {
   );
 };
 
+function extractOverlay(children: ZoomSlotProps["children"]) {
+  if (typeof children === "function") {
+    return null;
+  }
+  if (isSlotContent(children)) {
+    return children.props.overlay;
+  }
+  return null;
+}
+
 function renderChildren(
   children: ZoomSlotProps["children"],
   outletSize: DOMRect
-): JSX.Element {
+): React.ReactNode {
   // This the child a function?  If so, pass size to it...
   if (typeof children === "function") {
     return children(outletSize);
   }
   // Is the child an instance of `SlotContent`?
-  if (children.type.name === slotContentType.name) {
-    // Does it _that_ have a function as a child?  If so, pass size to it...
-    if (typeof children.props["children"] === "function") {
-      return children.props["children"](outletSize);
+  if (isSlotContent(children)) {
+    const schildren = children.props.children;
+    // Is it a function, if so call it with the outlet size
+    if (typeof schildren === "function") {
+      return schildren(outletSize);
     }
-    // Otherwise, just render its children (not its overlay!) here
-    return children.props["children"];
+    // Otherwise just return it
+    return schildren;
   }
 
   // In all other cases, just render the children
