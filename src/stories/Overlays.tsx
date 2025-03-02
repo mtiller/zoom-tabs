@@ -1,4 +1,4 @@
-import { Sidebar, ZoomProvider, SlotContent } from "../../pkg";
+import { Sidebar, ZoomProvider, SlotContent, SidebarProps } from "../../pkg";
 import { Vega } from "react-vega";
 import { barChartData, barChartSpec } from "./specs/bar-chart";
 import "./vega.css";
@@ -12,6 +12,7 @@ export interface OverlaysProps {
   aspectRatio: number;
   width: string;
   gap: number;
+  side: SidebarProps["side"];
 }
 
 export const Overlays = (props: OverlaysProps) => {
@@ -37,6 +38,7 @@ export const Overlays = (props: OverlaysProps) => {
             width={props.width}
             aspectRatio={props.aspectRatio}
             gap={props.gap}
+            side={props.side}
           >
             <SlotContent overlay={<h1>Bar Chart</h1>}>
               {(size) => (

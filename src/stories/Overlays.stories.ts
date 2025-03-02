@@ -25,6 +25,7 @@ export const WithOverlay: Story = {
     aspectRatio: 1.6,
     width: "20%",
     gap: 0,
+    side: "left",
   },
 };
 
@@ -33,5 +34,15 @@ export const WithOverlayAndGap: Story = {
     aspectRatio: 1.6,
     width: "20%",
     gap: 10,
+    side: "left",
+  },
+};
+
+export const WithOverlayRight: Story = {
+  args: {
+    aspectRatio: 1.6,
+    width: "20%",
+    gap: 0,
+    side: "right",
   },
 };

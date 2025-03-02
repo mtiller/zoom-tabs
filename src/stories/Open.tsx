@@ -1,5 +1,11 @@
 import React from "react";
-import { zoomContext, ZoomProvider, SlotContent, Sidebar } from "../../pkg";
+import {
+  zoomContext,
+  ZoomProvider,
+  SlotContent,
+  Sidebar,
+  SidebarProps,
+} from "../../pkg";
 
 export const Open = (props: VideoPageProps) => {
   return (
@@ -71,6 +77,7 @@ export interface VideoPageProps {
   aspectRatio: number;
   width: string;
   gap: number;
+  side: SidebarProps["side"];
 }
 
 export const VideoPage = (props: VideoPageProps) => {
@@ -80,6 +87,7 @@ export const VideoPage = (props: VideoPageProps) => {
         width={props.width}
         aspectRatio={props.aspectRatio}
         gap={props.gap}
+        side={props.side}
       >
         <SlotContent>
           <Introduction />
