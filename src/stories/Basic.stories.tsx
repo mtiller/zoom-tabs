@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Basic } from "./Basic";
-import { Sidebar, ZoomProvider } from "../../pkg";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
@@ -23,15 +22,7 @@ type Story = StoryObj<typeof meta>;
 
 export const BasicExample: Story = {
   name: "Basic Sidebar Usage",
-  render: () => (
-    <ZoomProvider>
-      <Sidebar aspectRatio={1.6}>
-        <p>Sample content 1</p>
-        <p>Sample content 2</p>
-        <p>Sample content 3</p>
-      </Sidebar>
-    </ZoomProvider>
-  ),
+  render: Basic,
   args: {
     aspectRatio: 1.6,
   },

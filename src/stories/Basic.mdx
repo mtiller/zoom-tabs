@@ -7,20 +7,8 @@ import {
   Title,
 } from "@storybook/blocks";
 import * as BasicStories from "./Basic.stories";
-import "./basic.css";
 
-<Meta
-  of={BasicStories}
-  name="Example/Basic Usage"
-  decorators={[
-    (Story) => {
-      // include stylesheets here so they do not persist on other Stories
-      const csr = require("./basic.css");
-      return <Story />;
-    },
-  ]}
-/>
-;
+<Meta of={BasicStories} />;
 
 <Title>Getting Started</Title>
 
