@@ -1,4 +1,4 @@
-import { Sidebar, ZoomProvider, SlotContent } from "../../lib";
+import { Sidebar, ZoomProvider, SlotContent } from "../../pkg";
 import { Vega } from "react-vega";
 import { barChartData, barChartSpec } from "./specs/bar-chart";
 import "./vega.css";

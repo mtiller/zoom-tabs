@@ -1,5 +1,5 @@
 import React from "react";
-import { zoomContext, ZoomProvider, SlotContent, Sidebar } from "../../lib";
+import { zoomContext, ZoomProvider, SlotContent, Sidebar } from "../../pkg";
 
 export const Open = (props: VideoPageProps) => {
   return (
