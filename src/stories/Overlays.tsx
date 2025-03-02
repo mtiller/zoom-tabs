@@ -3,6 +3,7 @@ import { SlotContent } from "../lib/components/content";
 import { Vega } from "react-vega";
 import { barChartData, barChartSpec } from "./specs/bar-chart";
 import "./vega.css";
+import "./Overlay.css";
 import { treeMapSpec } from "./specs/treemap";
 import { parallelSpec } from "./specs/parallel";
 import React from "react";
@@ -16,6 +17,7 @@ export interface OverlaysProps {
 
 export const Overlays = (props: OverlaysProps) => {
   const [actions, setActions] = React.useState(false);
+  // This is needed to get the vega stuff to re-read its data.
   React.useLayoutEffect(() => {
     setTimeout(() => setActions(true), 50);
   });

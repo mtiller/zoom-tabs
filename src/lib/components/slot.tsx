@@ -1,4 +1,4 @@
-import React, { JSX, useEffect, useLayoutEffect } from "react";
+import React, { JSX, useEffect } from "react";
 import { zoomContext, ZoomContextData } from "../contexts/zoom";
 import { useSize, useSlot } from "../hooks";
 import { slotContentType } from "./content";
@@ -27,7 +27,6 @@ export const ZoomSlot = (props: ZoomSlotProps) => {
   const data = useSlot(props.slot);
   const target = React.useRef<HTMLDivElement>(null);
   const size = useSize(target);
-  const [addTransition, setAddTransition] = React.useState(false);
 
   useEffect(() => {
     controls.registerSlot(props.slot);
@@ -35,9 +34,6 @@ export const ZoomSlot = (props: ZoomSlotProps) => {
   useEffect(() => {
     controls.setSlotSize(props.slot, size);
   }, [controls.setSlotSize, props.slot, size]);
-  useLayoutEffect(() => {
-    setTimeout(() => setAddTransition(true), 10);
-  });
   const sx = size.width / outletSize.width;
   const sy = size.height / outletSize.height;
   const dx = outletSize.x - size.x;
@@ -89,7 +85,7 @@ export const ZoomSlot = (props: ZoomSlotProps) => {
       <div
         style={{
           ...maskCss,
-          ...(addTransition ? transitionCSS : {}),
+          ...(state.active ? transitionCSS : {}),
           width: "100%",
           height: "100%",
           zIndex: 10,
@@ -107,7 +103,7 @@ export const ZoomSlot = (props: ZoomSlotProps) => {
         style={{
           display: "flex",
           ...maskCss,
-          ...(addTransition ? transitionCSS : {}),
+          ...(state.active ? transitionCSS : {}),
           width: size.width,
           height: size.height,
           justifyContent: "space-around",
@@ -124,7 +120,7 @@ export const ZoomSlot = (props: ZoomSlotProps) => {
       <div
         style={{
           ...maskCss,
-          ...(addTransition ? transitionCSS : {}),
+          ...(state.active ? transitionCSS : {}),
           width: outletSize.width,
           height: outletSize.height,
           ...contentCss,
@@ -143,14 +139,12 @@ function renderChildren(
 ): JSX.Element {
   // This the child a function?  If so, pass size to it...
   if (typeof children === "function") {
-    console.log("Passed size to slot child: ", outletSize);
     return children(outletSize);
   }
   // Is the child an instance of `SlotContent` and does it _that_ have a function
   // as a child?  If so, pass size to it...
   if (children.type.name === slotContentType.name) {
     if (typeof children.props["children"] === "function") {
-      console.log("Passed size to SlotContent child: ", outletSize);
       return children.props["children"](outletSize);
     }
     return children.props["children"];

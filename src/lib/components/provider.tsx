@@ -14,6 +14,7 @@ export const ZoomProvider = (props: ZoomProviderProps) => {
     slotData: new Map(),
     outlet: null,
     outletSize: new DOMRect(),
+    active: false,
   });
   const setExpanded = React.useCallback(
     (id: string, expanded: boolean) => {
@@ -35,7 +36,7 @@ export const ZoomProvider = (props: ZoomProviderProps) => {
           slotData.set(key, { ...value, expanded: false });
         });
         slotData.set(id, { ...slot, expanded: true });
-        setState({ ...state, slotData });
+        setState({ ...state, slotData, active: true });
       }
     },
     [state, setState]

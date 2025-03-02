@@ -14,9 +14,14 @@ export interface ZoomContextControls {
  * data, outlet data and general preferences)
  **/
 export interface ZoomContextState {
+  /** Information about individual slots */
   slotData: Map<string, SlotData>;
+  /** A `ref` to the outlet */
   outlet: React.RefObject<HTMLDivElement> | null;
+  /** The size of the outlet */
   outletSize: DOMRect;
+  /** Whether animations are active */
+  active: boolean;
 }
 
 /** This is information we store about each slot */
