@@ -27,3 +27,11 @@ export const NestedVideos: Story = {
     gap: 0,
   },
 };
+
+export const NestedVideosWithGap: Story = {
+  args: {
+    aspectRatio: 1.6,
+    width: "20%",
+    gap: 10,
+  },
+};
