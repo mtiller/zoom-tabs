@@ -2,11 +2,13 @@ import { JSX } from "react";
 import { ZoomOutlet, ZoomSlot } from "../components";
 
 export interface SidebarProps {
-  /** This is the ratio of width to height */
+  /** This is the ratio of width to height for each component */
   aspectRatio: number;
-  width: string;
+  /** This is the minimum number of slots to be rendered */
   minSlots?: number;
+  /** The gap between elements */
   gap?: number;
+  /** Which side the thumbnails should be on */
   side?: "left" | "right" | "top" | "bottom";
   children: JSX.Element[];
 }
@@ -14,7 +16,6 @@ export interface SidebarProps {
 export const Sidebar = ({
   children,
   aspectRatio,
-  width,
   side,
   gap,
   minSlots,
@@ -39,7 +40,7 @@ export const Sidebar = ({
     ? {
         display: "flex",
         gap: gap,
-        width: width,
+        width: `${100 / nslots}%`,
         flexDirection: sidebarDirection,
       }
     : {

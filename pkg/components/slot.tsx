@@ -63,6 +63,7 @@ export const ZoomSlot = (props: ZoomSlotProps) => {
         opacity: 1,
       };
 
+  // See if there is an overlay defined for this slot
   const overlay =
     typeof props.children === "function"
       ? null
@@ -141,15 +142,16 @@ function renderChildren(
   if (typeof children === "function") {
     return children(outletSize);
   }
-  // Is the child an instance of `SlotContent` and does it _that_ have a function
-  // as a child?  If so, pass size to it...
+  // Is the child an instance of `SlotContent`?
   if (children.type.name === slotContentType.name) {
+    // Does it _that_ have a function as a child?  If so, pass size to it...
     if (typeof children.props["children"] === "function") {
       return children.props["children"](outletSize);
     }
+    // Otherwise, just render its children (not its overlay!) here
     return children.props["children"];
   }
 
-  // In all other cases, just
+  // In all other cases, just render the children
   return children;
 }

@@ -75,16 +75,16 @@ export const Introduction = () => {
 
 export interface VideoPageProps {
   aspectRatio: number;
-  width: string;
   gap: number;
   side: SidebarProps["side"];
+  minSlots?: number;
 }
 
 export const VideoPage = (props: VideoPageProps) => {
   return (
     <div style={{ width: "100%" }}>
       <Sidebar
-        width={props.width}
+        minSlots={props.minSlots}
         aspectRatio={props.aspectRatio}
         gap={props.gap}
         side={props.side}

@@ -7,7 +7,7 @@ export interface SlotContentProps {
 }
 
 export const SlotContent = (props: SlotContentProps) => {
-  return typeof props.children;
+  return <div></div>;
 };
 
 export const slotContentType = React.createElement(SlotContent).type;

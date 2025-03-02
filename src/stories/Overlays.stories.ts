@@ -23,7 +23,6 @@ type Story = StoryObj<typeof meta>;
 export const WithOverlay: Story = {
   args: {
     aspectRatio: 1.6,
-    width: "20%",
     gap: 0,
     side: "left",
   },
@@ -32,7 +31,6 @@ export const WithOverlay: Story = {
 export const WithOverlayAndGap: Story = {
   args: {
     aspectRatio: 1.6,
-    width: "20%",
     gap: 10,
     side: "left",
   },
@@ -41,8 +39,16 @@ export const WithOverlayAndGap: Story = {
 export const WithOverlayRight: Story = {
   args: {
     aspectRatio: 1.6,
-    width: "20%",
     gap: 0,
     side: "right",
+  },
+};
+
+export const WithOverlayExtraSlots: Story = {
+  args: {
+    aspectRatio: 1.6,
+    gap: 0,
+    side: "left",
+    minSlots: 6,
   },
 };

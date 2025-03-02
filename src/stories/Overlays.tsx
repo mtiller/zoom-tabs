@@ -10,9 +10,9 @@ import { mapSpec } from "./specs/map";
 
 export interface OverlaysProps {
   aspectRatio: number;
-  width: string;
   gap: number;
   side: SidebarProps["side"];
+  minSlots?: number;
 }
 
 export const Overlays = (props: OverlaysProps) => {
@@ -35,10 +35,10 @@ export const Overlays = (props: OverlaysProps) => {
         </div>
         <div style={{ width: "100%" }}>
           <Sidebar
-            width={props.width}
             aspectRatio={props.aspectRatio}
             gap={props.gap}
             side={props.side}
+            minSlots={props.minSlots}
           >
             <SlotContent overlay={<h1>Bar Chart</h1>}>
               {(size) => (
@@ -57,6 +57,7 @@ export const Overlays = (props: OverlaysProps) => {
                 <Vega
                   width={size.width * 0.95}
                   height={size.height * 0.9}
+                  renderer="svg"
                   spec={treeMapSpec as any}
                   actions={actions}
                 />
@@ -65,8 +66,9 @@ export const Overlays = (props: OverlaysProps) => {
             <SlotContent overlay={<h1>Heatmap</h1>}>
               {(size) => (
                 <Vega
-                  width={size.width * 0.95}
+                  width={size.width * 0.9}
                   height={size.height * 0.9}
+                  renderer="svg"
                   spec={parallelSpec as any}
                   actions={actions}
                 />
@@ -77,6 +79,7 @@ export const Overlays = (props: OverlaysProps) => {
                 <Vega
                   width={size.width * 0.95}
                   height={size.height * 0.9}
+                  renderer="svg"
                   spec={mapSpec as any}
                   actions={actions}
                 />

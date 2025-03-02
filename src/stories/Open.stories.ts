@@ -23,7 +23,6 @@ type Story = StoryObj<typeof meta>;
 export const NestedVideos: Story = {
   args: {
     aspectRatio: 1.6,
-    width: "20%",
     gap: 0,
     side: "left",
   },
@@ -32,7 +31,6 @@ export const NestedVideos: Story = {
 export const NestedVideosOnRight: Story = {
   args: {
     aspectRatio: 1.6,
-    width: "20%",
     gap: 0,
     side: "right",
   },
@@ -41,7 +39,6 @@ export const NestedVideosOnRight: Story = {
 export const NestedVideosOnTop: Story = {
   args: {
     aspectRatio: 1.6,
-    width: "20%",
     gap: 0,
     side: "top",
   },
@@ -50,7 +47,6 @@ export const NestedVideosOnTop: Story = {
 export const NestedVideosOnBottom: Story = {
   args: {
     aspectRatio: 1.6,
-    width: "20%",
     gap: 0,
     side: "bottom",
   },
@@ -59,7 +55,6 @@ export const NestedVideosOnBottom: Story = {
 export const NestedVideosOnLeftWithGap: Story = {
   args: {
     aspectRatio: 1.6,
-    width: "20%",
     gap: 10,
     side: "left",
   },
@@ -68,8 +63,25 @@ export const NestedVideosOnLeftWithGap: Story = {
 export const NestedVideosOnTopWithGap: Story = {
   args: {
     aspectRatio: 1.6,
-    width: "20%",
     gap: 10,
     side: "top",
+  },
+};
+
+export const NestedVideosOnLeftSixSlots: Story = {
+  args: {
+    aspectRatio: 1.6,
+    gap: 10,
+    side: "left",
+    minSlots: 6,
+  },
+};
+
+export const NestedVideosOnTopSixSlots: Story = {
+  args: {
+    aspectRatio: 1.6,
+    gap: 10,
+    side: "top",
+    minSlots: 6,
   },
 };
