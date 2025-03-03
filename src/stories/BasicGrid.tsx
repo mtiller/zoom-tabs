@@ -3,7 +3,7 @@ import css from "./basic.css?inline";
 
 export interface BasicGridProps {}
 
-export const BasicGrid = (props: BasicGridProps) => {
+export const BasicGrid = (_props: BasicGridProps) => {
   return (
     <div>
       <style>{css.toString()}</style>

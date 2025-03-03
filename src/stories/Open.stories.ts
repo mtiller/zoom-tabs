@@ -10,7 +10,7 @@ const meta = {
     // layout: "centered",
   },
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
-  tags: ["autodocs"],
+  // tags: ["autodocs"],
   // More on argTypes: https://storybook.js.org/docs/api/argtypes
   argTypes: {},
   // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
@@ -20,7 +20,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const NestedVideos: Story = {
+export const InitiallyOpen: Story = {
   args: {
     aspectRatio: 1.6,
     gap: 0,
@@ -28,60 +28,11 @@ export const NestedVideos: Story = {
   },
 };
 
-export const NestedVideosOnRight: Story = {
-  args: {
-    aspectRatio: 1.6,
-    gap: 0,
-    side: "right",
-  },
-};
-
-export const NestedVideosOnTop: Story = {
+export const NestedVideosOnTopSevenSlots: Story = {
   args: {
     aspectRatio: 1.6,
     gap: 0,
     side: "top",
-  },
-};
-
-export const NestedVideosOnBottom: Story = {
-  args: {
-    aspectRatio: 1.6,
-    gap: 0,
-    side: "bottom",
-  },
-};
-
-export const NestedVideosOnLeftWithGap: Story = {
-  args: {
-    aspectRatio: 1.6,
-    gap: 10,
-    side: "left",
-  },
-};
-
-export const NestedVideosOnTopWithGap: Story = {
-  args: {
-    aspectRatio: 1.6,
-    gap: 10,
-    side: "top",
-  },
-};
-
-export const NestedVideosOnLeftSixSlots: Story = {
-  args: {
-    aspectRatio: 1.6,
-    gap: 10,
-    side: "left",
-    minSlots: 6,
-  },
-};
-
-export const NestedVideosOnTopSixSlots: Story = {
-  args: {
-    aspectRatio: 1.6,
-    gap: 10,
-    side: "top",
-    minSlots: 6,
+    minSlots: 7,
   },
 };

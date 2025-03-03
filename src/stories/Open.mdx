@@ -1,0 +1,77 @@
+import {
+  Meta,
+  Primary,
+  Controls,
+  Canvas,
+  Story,
+  Title,
+} from "@storybook/blocks";
+import * as OpenStories from "./Open.stories";
+
+<Meta of={OpenStories} />
+
+# Initially Open Content
+
+When configuring a `<ZoomProvider>`, it is possible to specify that a particular
+slot should be open initially, _e.g._,
+
+```jsx
+<ZoomProvider initiallyOpen="slot0">...</ZoomProvider>
+```
+
+This can be used, for example, to provide some instructions and orientation to
+users.
+
+<Canvas of={OpenStories.InitiallyOpen} />
+
+Note that in this example the initial slot includes buttons that allow us to
+control the transitions with UI elements (in addition to the "automatic" click
+handlers already provided by `<ZoomSlot>` components). This is accomplished
+with code like this:
+
+```typescript
+export const Introduction = () => {
+  const { controls } = React.useContext(zoomContext);
+  return (
+    <div>
+      <h1>Keeping an Eye on Content</h1>
+      <div>...</div>
+      <div>
+        <button onClick={() => controls.expandSlot("slot1")}>
+          Kobe's Final Game
+        </button>
+        <button onClick={() => controls.expandSlot("slot2")}>
+          L.A. Lakers vs. Sacramento Kings
+        </button>
+        <button onClick={() => controls.expandSlot("slot3")}>
+          Last 6 Minutes of Bucks vs. Suns
+        </button>
+        <button onClick={() => controls.expandSlot("slot4")}>
+          Michael Jordan's Final Bull's Game
+        </button>
+      </div>
+    </div>
+  );
+};
+```
+
+## Padding Thumbnails
+
+Note that it is possible with `<Sidebar>` to put the thumbnails on any edge of
+the `<div>`. So, for example, we can put them across the top. Another thing we
+can do is specify a minimum number of thumbnails.
+
+The following attributes were used to create this variation:
+
+```jsx
+<Sidebar minSlots={7} side="right">
+  ...
+</Sidebar>
+```
+
+This is useful because with fewer thumbnails, the aspect ratio constraints will
+tend make the thumbnails larger unless we add some extra "empty" space. The
+following example demonstrates both putting the thumbnails at the top as well as
+adding extra "blank" space among the thumbnails:
+
+<Canvas of={OpenStories.NestedVideosOnTopSevenSlots} />

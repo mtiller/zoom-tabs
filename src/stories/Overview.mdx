@@ -11,33 +11,15 @@ import { Meta } from "@storybook/blocks";
     between the different pages of content, the tabs here include a full view of the content of the tab but
     scaled into a small thumbnail preview.
 
-    ## Layout
+    Here are various topics demonstrated in this Storybook:
 
-    One of the nice things about this package is that it allows you to determine how all the various thumbnails
-    and the content "outlet" are laid out.  This package simply takes care of the graphical transitions that
-    occur when the individual pages are selected.
-
-    This package can be used with any layout of a page.  All the user has to do is add a `<ZoomSlot>` component
-    anywhere they would like to see a thumbnail preview.  The children of the `<ZoomSlot>` will be the contents
-    associated with that slot.  In addition, a `<ZoomOutlet>` component needs to be placed somewhere in the UI
-    where the non-thumbnail version of the content is to be shown.
-
-    ### `<Sidebar>` Layout
-
-    Because it is very common to want thumbnails lined up along one edge and the "outlet" placed next to them,
-    the `<Sidebar>` component is provided.  The children of the `<Sidebar>` are the content to be shown in the
-    thumbnails and/or outlet.  Using the `<Sidebar>` takes care of all layout, the user just provides the
-    content, _e.g.,_
-
-    ```typescript
-    <ZoomProvider>
-      <Sidebar aspectRatio={1.6}>
-        <p>Sample content 1</p>
-        <p>Sample content 2</p>
-        <p>Sample content 3</p>
-      </Sidebar>
-    </ZoomProvider>
-    ```
+    1. [Common layout patterns](/docs/stories-basic--docs#common-layouts)
+    2. [Selecting thumbnail edge](/docs/stories-using-overlays--docs#picking-a-side)
+    3. [Using your own layout](/docs/stories-basic--docs#bring-your-own-layout)
+    4. [Controlling slot expansion](/docs/stories-initially-open-slots--docs#initially-open-content)
+    5. [Adding overlays](/docs/stories-using-overlays--docs#basic-overlays)
+    6. [Higher order components](/docs/stories-using-overlays--docs#picking-a-size)
+    7. [Controlling sidebar size](/docs/stories-initially-open-slots--docs#padding-thumbnails)
 
   </div>
 </div>

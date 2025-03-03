@@ -60,7 +60,7 @@ export const Introduction = () => {
           Kobe's Final Game
         </button>
         <button onClick={() => controls.expandSlot("slot2")}>
-          L.A. Lakers vs. Sacremento Kings
+          L.A. Lakers vs. Sacramento Kings
         </button>
         <button onClick={() => controls.expandSlot("slot3")}>
           Last 6 Minutes of Bucks vs. Suns

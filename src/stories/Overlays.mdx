@@ -1,0 +1,64 @@
+import {
+  Meta,
+  Primary,
+  Controls,
+  Canvas,
+  Story,
+  Title,
+} from "@storybook/blocks";
+import * as OverlaysStories from "./Overlays.stories";
+
+<Meta of={OverlaysStories} />
+
+# Adding Overlays
+
+## Basic Overlays
+
+When content resumes its thumbnail position, it is possible to provide an
+"overlay" component that provides some additional contextual information. This
+useful when the content itself becomes hard to read because of the scaling and
+the overlay can be used to summarize information in the visual that can no
+longer be easily read.
+
+This is done by leveraging the `<SlotContent>` component. This component allows
+for specifying **both** the content of the thumbnail (which is placed as the
+child of the `<SlotContent`>) and an "overlay" component using the `overlay`
+attribute. For example,
+
+```jsx
+<SlotContent overlay={<h1>Bar Chart</h1>}>
+  {(size) => (
+    <Vega
+      width={size.width}
+      height={size.height}
+      ...
+    />
+  )}
+</SlotContent>
+```
+
+Using the `<SlotContent>` component we can achieve visuals like this:
+
+<Canvas of={OverlaysStories.WithOverlay} />
+
+## Picking a Size
+
+Note that the "child" in the previous example is actually a closure. Both `<ZoomSlot>` and `<SlotContent>` allow
+their children to be higher order components. This is very useful when you have content that isn't not
+particularly "responsive". Because the size information is passed in in this case, we can automatically size
+the content in the slot to fit.
+
+## Picking a Side
+
+As mentioned previously, it is possible to place the thumbnails along any edge. For example,
+in this case (with only the change of the `side` attribute), we can place the thumbnails
+on the right:
+
+<Canvas of={OverlaysStories.WithOverlayRight} />
+
+## Interactions
+
+Note that when "tucked away", the thumbnails cannot be interacted with. The
+only interaction allowed is to click on the thumbnail to zoom in or out of that
+particular slot. But when not scaled down to a thumbnail, you are free to
+interact with the content in all the normal ways.
