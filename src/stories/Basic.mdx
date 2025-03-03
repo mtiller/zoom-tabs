@@ -8,9 +8,11 @@ import {
 } from "@storybook/blocks";
 import * as BasicStories from "./Basic.stories";
 
-<Meta of={BasicStories} />;
+<Meta of={BasicStories} />
 
-<Title>Getting Started</Title>
+# Getting Started
+
+## Common Layouts
 
 With `zoom-tabs`, you have the power to layout your content however you want. But it is very common
 to layout content so that thumbnail previews are on one side and the selected content is front and
@@ -19,7 +21,7 @@ the scenes so that you only need to specify the collection of elements to be sho
 
 Consider the following simple fragment of TSX code:
 
-```typescript
+```jsx
 <ZoomProvider>
   <Sidebar aspectRatio={1.6}>
     <p>Sample content 1</p>
@@ -34,3 +36,72 @@ individual child of the sidebar with a red border to better demonstrate how the
 layout and transitions are handled...
 
 <Canvas of={BasicStories.BasicExample} />
+
+## Bring Your Own Layout
+
+Although the `<Sidebar>` component represents common use cases, it is possible
+to use nearly any layout you can come up with. The key is to enclose a portion
+of your UI with `<ZoomProvider>` and then, within that tree include `<ZoomSlot>`
+elements to wrap the different views you want to switch between and an instance
+of `<ZoomOutlet>` in the space where you want to view the full version.
+
+So, for example, we could use CSS Grids to describe a layout. Using the following
+CSS:
+
+```css
+.parent {
+  display: grid;
+  aspect-ratio: 1.6;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+
+.div1 {
+  grid-area: 1 / 1 / 2 / 2;
+  aspect-ratio: 1.6;
+}
+.div2 {
+  grid-area: 5 / 5 / 6 / 6;
+  aspect-ratio: 1.6;
+}
+.div3 {
+  grid-area: 5 / 1 / 6 / 2;
+  aspect-ratio: 1.6;
+}
+.div4 {
+  grid-area: 1 / 5 / 2 / 6;
+  aspect-ratio: 1.6;
+}
+.div5 {
+  grid-area: 2 / 2 / 5 / 5;
+  aspect-ratio: 1.6;
+}
+```
+
+Then we can create a simple layout using:
+
+```jsx
+<ZoomProvider>
+  <div className="parent">
+    <div className="div1">
+      <ZoomSlot slot="ul">Upper Left</ZoomSlot>
+    </div>
+    <div className="div2">
+      <ZoomSlot slot="lr">Lower Right</ZoomSlot>
+    </div>
+    <div className="div3">
+      <ZoomSlot slot="ll">Lower Left</ZoomSlot>
+    </div>
+    <div className="div4">
+      <ZoomSlot slot="ur">Upper Right</ZoomSlot>
+    </div>
+    <div className="div5">
+      <ZoomOutlet />
+    </div>
+  </div>
+</ZoomProvider>
+```
+
+<Canvas of={BasicStories.BasicGridExample} />
